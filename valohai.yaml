@@ -1,0 +1,77 @@
+---
+
+- step:
+    name: theano-cifar
+    image: 905675611115.dkr.ecr.eu-west-1.amazonaws.com/valohai/keras:2.0.0-theano0.9.0rc4-python3.6-cuda8.0-cudnn5-devel-ubuntu16.04
+    command:
+      - python cifar10_cnn.py {parameters}
+    inputs:
+      - name: cifar-10-batches-py
+        default: http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+    parameters:
+      - name: batch_size
+        pass-as: --batch_size={v}
+        type: integer
+        default: 32
+      - name: num_classes
+        pass-as: --num_classes={v}
+        type: integer
+        default: 10
+      - name: epochs
+        pass-as: --epochs={v}
+        type: integer
+        default: 5
+      - name: data_augmentation
+        pass-as: --data_augmentation={v}
+        type: string
+        default: True
+
+- step:
+    name: tensorflow-cifar
+    image: 905675611115.dkr.ecr.eu-west-1.amazonaws.com/valohai/keras:2.0.0-tensorflow1.0.1-python3.6-cuda8.0-cudnn5-devel-ubuntu16.04
+    command:
+      - python cifar10_cnn.py {parameters}
+    inputs:
+      - name: cifar-10-batches-py
+        default: http://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz
+    parameters:
+      - name: batch_size
+        pass-as: --batch_size={v}
+        type: integer
+        default: 32
+      - name: num_classes
+        pass-as: --num_classes={v}
+        type: integer
+        default: 10
+      - name: epochs
+        pass-as: --epochs={v}
+        type: integer
+        default: 5
+      - name: data_augmentation
+        pass-as: --data_augmentation={v}
+        type: string
+        default: True
+
+- step:
+    name: theano-check
+    image: 905675611115.dkr.ecr.eu-west-1.amazonaws.com/valohai/keras:2.0.0-theano0.9.0rc4-python3.6-cuda8.0-cudnn5-devel-ubuntu16.04
+    command:
+      - pwd
+      - python --version
+      - python -c "import keras; print('keras version is %s' % keras.__version__);"
+      - python -c "import theano; print('theano version is %s' % theano.__version__);"
+      - nvcc --version | grep release
+      - python -c "import theano; import theano.gpuarray.dnn; print(theano.gpuarray.dnn.version());"
+      - cat /proc/driver/nvidia/version
+
+- step:
+    name: tensorflow-check
+    image: 905675611115.dkr.ecr.eu-west-1.amazonaws.com/valohai/keras:2.0.0-tensorflow1.0.1-python3.6-cuda8.0-cudnn5-devel-ubuntu16.04
+    command:
+      - pwd
+      - python --version
+      - python -c "import keras; print('keras version is %s' % keras.__version__);"
+      - python -c "import tensorflow; print('tensorflow version is %s' % tensorflow.__version__);"
+      - python -c "from tensorflow.python.client import device_lib; device_lib.list_local_devices();"
+      - nvcc --version | grep release
+      - cat /proc/driver/nvidia/version

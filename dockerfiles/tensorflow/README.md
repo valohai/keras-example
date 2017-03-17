@@ -1,5 +1,7 @@
 Definition for a GPU-enabled Docker image with Keras and TensorFlow backend.
 
+You don't need to do this if you can use the already built version defined in your `valohai.yaml`.
+
 ```bash
 # Building an image.
 nvidia-docker build \

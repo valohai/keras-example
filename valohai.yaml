@@ -53,6 +53,86 @@
         default: True
 
 - step:
+    name: theano-deep-dream
+    image: valohai/keras:2.0.0-theano0.9.0rc4-python3.6-cuda8.0-cudnn5-devel-ubuntu16.04
+    command:
+      - python deep_dream.py {parameters}
+    inputs:
+      - name: source-image
+        default: https://valohai-examples.s3-eu-west-1.amazonaws.com/images/ribs_original.jpg
+    parameters:
+      - name: base_image_path
+        pass-as: '{v}'
+        type: string
+        default: /valohai/inputs/source-image/ribs_original.jpg
+        description: Path to the image to transform.
+      - name: result_prefix
+        pass-as: '{v}'
+        type: string
+        default: /valohai/outputs/result
+        description: Prefix for the saved results.
+      - name: iterations
+        pass-as: '{v}'
+        type: integer
+        default: 5
+        description: How many iterations to transform.
+      - name: image_height
+        pass-as: '{v}'
+        type: integer
+        default: 600
+        description: Height of the resulting image.
+      - name: image_width
+        pass-as: '{v}'
+        type: integer
+        default: 600
+        description: Width of the resulting image.
+      - name: setting_name
+        pass-as: '{v}'
+        type: string
+        default: dreamy
+        description: Generation settings, 'bad_trip' or 'dreamy'.
+
+- step:
+    name: tensorflow-deep-dream
+    image: valohai/keras:2.0.0-tensorflow1.0.1-python3.6-cuda8.0-cudnn5-devel-ubuntu16.04
+    command:
+      - python deep_dream.py {parameters}
+    inputs:
+      - name: source-image
+        default: https://valohai-examples.s3-eu-west-1.amazonaws.com/images/ribs_original.jpg
+    parameters:
+      - name: base_image_path
+        pass-as: '{v}'
+        type: string
+        default: /valohai/inputs/source-image/ribs_original.jpg
+        description: Path to the image to transform.
+      - name: result_prefix
+        pass-as: '{v}'
+        type: string
+        default: /valohai/outputs/result
+        description: Prefix for the saved results.
+      - name: iterations
+        pass-as: '{v}'
+        type: integer
+        default: 5
+        description: How many iterations to transform.
+      - name: image_height
+        pass-as: '{v}'
+        type: integer
+        default: 600
+        description: Height of the resulting image.
+      - name: image_width
+        pass-as: '{v}'
+        type: integer
+        default: 600
+        description: Width of the resulting image.
+      - name: setting_name
+        pass-as: '{v}'
+        type: string
+        default: dreamy
+        description: Generation settings, 'bad_trip' or 'dreamy'.
+
+- step:
     name: theano-check
     image: valohai/keras:2.0.0-theano0.9.0rc4-python3.6-cuda8.0-cudnn5-devel-ubuntu16.04
     command:

@@ -21,7 +21,7 @@ RUN apt-get update --fix-missing && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python
-RUN add-apt-repository -y ppa:fkrull/deadsnakes && \
+RUN add-apt-repository -y ppa:deadsnakes/ppa && \
     apt-get update --fix-missing && \
     apt-get install -y python${PYTHON_VERSION}-dev && \
     apt-get clean && \
@@ -36,7 +36,7 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
 
 # Install and configure Keras
 # Python keras import initializes the config file.
-RUN pip install --no-cache-dir git+git://github.com/fchollet/keras.git@${KERAS_VERSION} && \
+RUN pip install --no-cache-dir git+git://github.com/keras-team/keras.git@${KERAS_VERSION} && \
     python -c "import keras;" && \
     sed -i'' -- 's/tensorflow/theano/g' /root/.keras/keras.json && \
     pip uninstall -y tensorflow

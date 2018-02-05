@@ -4,7 +4,7 @@ You don't need to do this if you can use the already built version defined in yo
 
 ```bash
 # Building an image.
-nvidia-docker build \
+nvidia-docker build --no-cache \
     --build-arg PYTHON_VERSION=3.6 \
     --build-arg THEANO_VERSION=rel-0.9.0rc4 \
     --build-arg KERAS_VERSION=2.0.0 \

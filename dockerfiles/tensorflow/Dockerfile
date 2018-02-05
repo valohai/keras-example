@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-cudnn5-devel-ubuntu16.04
+FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu14.04
 
 MAINTAINER Ruksi <ruksi@valohai.com>
 
@@ -20,7 +20,7 @@ RUN apt-get update --fix-missing && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Python
-RUN add-apt-repository -y ppa:fkrull/deadsnakes && \
+RUN add-apt-repository -y ppa:deadsnakes/ppa && \
     apt-get update --fix-missing && \
     apt-get install -y python${PYTHON_VERSION}-dev && \
     apt-get clean && \
@@ -42,11 +42,9 @@ RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     rm get-pip.py
 
 # Install Keras
-# Keras installs some version of CPU TensorFlow by default so we remove that but leave rest of the deps.
-RUN pip install --no-cache-dir git+git://github.com/fchollet/keras.git@${KERAS_VERSION} && \
-    pip uninstall -y tensorflow
+RUN pip install --no-cache-dir git+git://github.com/keras-team/keras.git@${KERAS_VERSION}
 
-# Install TensorFlow, note that this must be done AFTER Keras installation
+# Install TensorFlow
 RUN pip install --no-cache-dir tensorflow-gpu==${TENSORFLOW_VERSION}
 
 # Make sure that common data science libraries are installed.

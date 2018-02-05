@@ -4,15 +4,15 @@ You don't need to do this if you can use the already built version defined in yo
 
 ```bash
 # Building an image.
-nvidia-docker build \
-    --build-arg PYTHON_VERSION=3.6 \
-    --build-arg TENSORFLOW_VERSION=1.0.1 \
-    --build-arg KERAS_VERSION=2.0.0 \
-    -t valohai/keras:2.0.0-tensorflow1.0.1-python3.6-cuda8.0-cudnn5-devel-ubuntu16.04 \
+nvidia-docker build --no-cache \
+    --build-arg PYTHON_VERSION=3.5 \
+    --build-arg TENSORFLOW_VERSION=1.4.0 \
+    --build-arg KERAS_VERSION=2.1.3 \
+    -t valohai/keras:2.1.3-tensorflow1.4.0-python3.5-cuda8.0-cudnn6-devel-ubuntu14.04 \
     .
 
 # Validate that the version are right.
-nvidia-docker run --rm valohai/keras:2.0.0-tensorflow1.0.1-python3.6-cuda8.0-cudnn5-devel-ubuntu16.04 \
+nvidia-docker run --rm valohai/keras:2.1.3-tensorflow1.4.0-python3.5-cuda8.0-cudnn6-devel-ubuntu14.04 \
     /bin/bash -c '\
     python --version; \
     python -c "import keras; print(keras.__version__);"; \

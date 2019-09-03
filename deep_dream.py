@@ -20,6 +20,7 @@ Example results: http://i.imgur.com/FX6ROg9.jpg
 from __future__ import print_function
 
 import json
+import os
 
 from keras.preprocessing.image import load_img, img_to_array
 from scipy.optimize import fmin_l_bfgs_b
@@ -235,6 +236,11 @@ for i in range(iterations):
     img = deprocess_image(np.copy(x))
     fname = result_prefix + '_at_iteration_%d.png' % i
     imageio.imwrite(fname, img)
+    try:
+        # Mark image as read-only to have Valohai upload it right away
+        os.chmod(fname, 0o444)
+    except OSError:
+        pass
     end_time = time.time()
     print('Image saved as', fname)
     print('Iteration %d completed in %ds' % (i, end_time - start_time))

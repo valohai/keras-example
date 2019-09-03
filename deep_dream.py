@@ -21,13 +21,12 @@ from __future__ import print_function
 
 import json
 
-import numpy
 from keras.preprocessing.image import load_img, img_to_array
-import numpy as np
-from scipy.misc import imsave
 from scipy.optimize import fmin_l_bfgs_b
-import time
 import argparse
+import imageio
+import numpy as np
+import time
 
 from keras.applications import vgg16
 from keras import backend as K
@@ -235,7 +234,7 @@ for i in range(iterations):
     x -= random_jitter
     img = deprocess_image(np.copy(x))
     fname = result_prefix + '_at_iteration_%d.png' % i
-    imsave(fname, img)
+    imageio.imwrite(fname, img)
     end_time = time.time()
     print('Image saved as', fname)
     print('Iteration %d completed in %ds' % (i, end_time - start_time))

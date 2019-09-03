@@ -30,7 +30,10 @@ def use_valohai_input():
     untar_fpath = os.path.join(datadir, 'cifar-10-batches-py')
     fpath = untar_fpath + '.tar.gz'
     input_file = os.path.join(input_dir, input_files[0])  # We expect to have only one file as input
-    shutil.move(input_file, fpath)
+    try:
+        os.symlink(input_file, fpath)
+    except OSError:
+        shutil.copyfile(input_file, fpath)
 
 
 def train(params):

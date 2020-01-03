@@ -12,6 +12,7 @@ from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Flatten
 from keras.layers import Conv2D, MaxPooling2D
 
+from parse_layer_spec import add_layers
 
 def use_valohai_input():
     """
@@ -41,6 +42,7 @@ def train(params):
     num_classes = params.num_classes
     epochs = params.epochs
     data_augmentation = params.data_augmentation
+    model_layers = params.model_layers
 
     img_rows, img_cols = 32, 32  # input image dimensions
     img_channels = 3  # The CIFAR10 images are RGB.
@@ -56,25 +58,10 @@ def train(params):
     y_test = keras.utils.to_categorical(y_test, num_classes)
 
     model = Sequential()
-
     model.add(Conv2D(32, (3, 3), padding='same', input_shape=x_train.shape[1:]))
-    model.add(Activation('relu'))
-    model.add(Conv2D(32, (3, 3)))
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
 
-    model.add(Conv2D(64, (3, 3), padding='same'))
-    model.add(Activation('relu'))
-    model.add(Conv2D(64, (3, 3)))
-    model.add(Activation('relu'))
-    model.add(MaxPooling2D(pool_size=(2, 2)))
-    model.add(Dropout(0.25))
+    model = add_layers(model, model_layers)
 
-    model.add(Flatten())
-    model.add(Dense(512))
-    model.add(Activation('relu'))
-    model.add(Dropout(0.5))
     model.add(Dense(num_classes))
     model.add(Activation('softmax'))
 

@@ -82,3 +82,8 @@
         pass-as: --data_augmentation={v}
         type: string
         default: True
+      - name: model_layers
+        pass-as: '{v}'
+        type: string
+        default: 'Activation('relu'),Conv2D(32, (3, 3)),Activation('relu'),MaxPooling2D(pool_size=(2, 2)),Dropout(0.25),Conv2D(64, (3, 3), padding='same'),Activation('relu'),Conv2D(64, (3, 3)),Activation('relu'),MaxPooling2D(pool_size=(2, 2)),Dropout(0.25),Flatten(),Dense(512),Activation('relu'),Dropout(0.5)'
+        description: Comma-separated list including the linear stack of layers added to the Sequential model.

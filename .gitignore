@@ -1,2 +1,5 @@
 *.tar.gz
 .idea/
+venv/
+__pycache__/
+.vscode/

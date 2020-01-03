@@ -124,5 +124,6 @@ if __name__ == '__main__':
     parser.add_argument('--num_classes', type=int)
     parser.add_argument('--epochs', type=int)
     parser.add_argument('--data_augmentation', type=bool, nargs='?', const=True)
+    parser.add_argument('--model_layers', type=str)
     cli_parameters, unparsed = parser.parse_known_args()
     train(cli_parameters)

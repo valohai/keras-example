@@ -2,6 +2,7 @@ import ast
 
 import keras.layers
 
+
 def add_layers(model, layers_list):
     tree = ast.parse(layers_list, 'asd', 'eval')
 

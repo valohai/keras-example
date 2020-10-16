@@ -3,7 +3,7 @@
 - step:
     name: tensorflow-check
     description: Check dependency version in the Docker image after setup and the type of hardware.
-    image: tensorflow/tensorflow:2.0.0-gpu-py3
+    image: tensorflow/tensorflow:2.0.3-gpu-py3
     command:
       - pip install --disable-pip-version-check -q -r requirements-gpu.txt
       - python --version
@@ -16,7 +16,7 @@
 - step:
     name: tensorflow-deep-dream
     description: Apply Deep Dream effect on the given image.
-    image: tensorflow/tensorflow:2.0.0-gpu-py3
+    image: tensorflow/tensorflow:2.0.3-gpu-py3
     command:
       - pip install --disable-pip-version-check -q -r requirements-gpu.txt
       - python deep_dream.py /valohai/inputs/source-image /valohai/outputs/result {parameters}
@@ -50,7 +50,7 @@
 - step:
     name: tensorflow-cifar
     description: Train a CNN model on the CIFAR10 dataset.
-    image: tensorflow/tensorflow:2.0.0-gpu-py3
+    image: tensorflow/tensorflow:2.0.3-gpu-py3
     command:
       - pip install --disable-pip-version-check -q -r requirements-gpu.txt
       - python cifar10_cnn.py {parameters}
